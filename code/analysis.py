@@ -21,6 +21,6 @@ def data_clean(input_path):
     
 
 if __name__=='__main__':
-    input_path= '../data/output.xlsx'
-    output_path = '../report/pandas_profiling_report.html'
+    input_path= '../data/d.xlsx'
+    output_path = '../report/d.html'
     generate_report(input_path, output_path)

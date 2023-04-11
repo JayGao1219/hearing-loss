@@ -2,6 +2,8 @@ import openpyxl
 import os
 
 def process_excel(input_path, output_path):
+    # 用于处理文件 audiogram.xlsx
+    # 这个文件有*
     # 打开 Excel 文件
     workbook = openpyxl.load_workbook(input_path)
 
@@ -23,6 +25,8 @@ def process_excel(input_path, output_path):
             # 如果非边界值是 **，则进行插值
             if '**' in row[1:-1]:
                 continue
+            if isinstance(row[0],str):
+                continue
 
             # 写入新的 Excel 文件
             iid.append(row[0])
@@ -33,12 +37,5 @@ def process_excel(input_path, output_path):
     output_workbook.save(output_path)
 
 
-
-# 测试代码
 if __name__=='__main__':
-    for f in os.listdir('../data/raw_data'):
-        if f.endswith('.xlsx'):
-            print(f)
-            input_path = '../data/raw_data/' + f
-            output_path = '../data/' + f
-            process_excel(input_path, output_path)
+    process_excel("../data/raw_data/audiogram.xlsx","../data/audiogram.xlsx")

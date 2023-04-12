@@ -79,10 +79,29 @@ def main(params,data):
     # 在训练结束时报告最终损失给 NNI
     nni.report_final_result(val_loss)
 
+def get_csv_data(path):
+    result=[]
+    tot=1
+    with open(path) as f:
+        context=f.read().split('\n')
+        for line in context:
+            if tot==1:
+                tot=0
+                continue
+            if line=='':
+                continue
+            l=line.split(',')
+            left=[]
+            right=[]
+            for i in range(7):
+                left.append(float(l[i+1]))
+                right.append(float(l[i+8]))
+            result.append(left)
+            result.append(right)
+    return np.array(result)
+
 if __name__ == "__main__":
-    data=pd.read_excel('../../data/au.xlsx').to_numpy()
-    data=data[:,1:] # 去掉第一列, 第一列是序号
-    numpy_data= data[~np.isnan(data).any(axis=1)] # 去掉有空值的行
+    numpy_data=get_csv_data('../../data/audiogram_concate_withoutNan_class.csv')
     torch_data = torch.from_numpy(numpy_data).float()
     # 归一化操作
     torch_data /= torch.max(torch_data)

@@ -4,6 +4,7 @@ import torch.optim as optim
 import nni
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
+import pandas as pd
 
 class Autoencoder(nn.Module):
     def __init__(self, hidden_size1, hidden_size2):
@@ -50,10 +51,6 @@ def main(params,data):
     train_loader = DataLoader(TensorDataset(train_data), batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(TensorDataset(val_data), batch_size=batch_size)
 
-
-    # data = torch.tensor([[1, 2, 3, 4, 5, 6, 7]], dtype=torch.float32)  # 示例数据，请用实际数据替换
-    # data /= torch.max(data)  # 归一化数据
-
     num_epochs = 100
     for epoch in range(num_epochs):
         model.train()
@@ -83,7 +80,9 @@ def main(params,data):
     nni.report_final_result(val_loss)
 
 if __name__ == "__main__":
-    numpy_data = np.array(...)  # 获取数据
+    data=pd.read_excel('../../data/au.xlsx').to_numpy()
+    data=data[:,1:] # 去掉第一列, 第一列是序号
+    numpy_data= data[~np.isnan(data).any(axis=1)] # 去掉有空值的行
     torch_data = torch.from_numpy(numpy_data).float()
     # 归一化操作
     torch_data /= torch.max(torch_data)

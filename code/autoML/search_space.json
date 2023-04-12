@@ -1,0 +1,6 @@
+{
+    "learning_rate": {"_type": "loguniform", "_value": [0.0001, 0.01]},
+    "hidden_size1": {"_type": "choice", "_value": [3, 4, 5, 6, 7]},
+    "hidden_size2": {"_type": "choice", "_value": [2, 3, 4, 5]},
+    "loss_function": {"_type": "choice", "_value": ["l1", "mse"]}
+}

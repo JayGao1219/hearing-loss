@@ -1,0 +1,16 @@
+authorName: default
+experimentName: Autoencoder_Hearing_Loss
+trialConcurrency: 2
+maxExecDuration: 1h
+maxTrialNum: 50
+trainingServicePlatform: local
+searchSpacePath: search_space.json
+useAnnotation: false
+tuner:
+  builtinTunerName: TPE
+  classArgs:
+    optimize_mode: minimize
+trial:
+  command: python autoencoder_nni.py
+  codeDir: .
+  gpuNum: 0

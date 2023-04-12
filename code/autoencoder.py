@@ -98,18 +98,6 @@ elif encoded_data.shape[1] == 3:
     plt.show()
 
 
-对于听力损伤任务，我们可以使用自编码器编码后的数据进行聚类分析，以发现数据中的潜在类别。然后，我们可以对每个类别的数据进行可视化和统计分析，以了解不同类别的特点。这有助于我们更好地理解不同类型的听力损伤。
-
-以下是针对听力损伤任务使用自编码器编码后的数据进行聚类、可视化和统计分析的示例代码：
-
-python
-Copy code
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
 # 假设 encoded_data 是自编码器编码后的数据
 encoded_data = np.array(...)  # 将省略号替换为实际的编码后数据
 

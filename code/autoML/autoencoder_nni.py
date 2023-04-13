@@ -25,6 +25,18 @@ class Autoencoder(nn.Module):
         x = self.decoder(x)
         return x
 
+def load_trained_model(model_path):
+    model = Autoencoder(4, 3)  # 使用最佳参数创建模型实例
+    model.load_state_dict(torch.load(model_path))
+    model.eval()
+    return model
+
+def encode_data_point(model, data_point):
+    with torch.no_grad():
+        data_point_tensor = torch.tensor(data_point, dtype=torch.float32).unsqueeze(0)  # 将数据点转换为单批次的张量
+        encoded_data = model.encoder(data_point_tensor)
+    return encoded_data.numpy()
+
 def main(params,data):
     hidden_size1 = params["hidden_size1"]
     hidden_size2 = params["hidden_size2"]
@@ -134,7 +146,7 @@ def train_best_model(params, data):
     torch.save(model.state_dict(), "best_autoencoder_model.pth")
     print("Model saved as best_autoencoder_model.pth")
 
-def get_csv_data(path):
+def get_csv_data(path,wanted='1'):
     result=[]
     tot=1
     with open(path) as f:
@@ -146,6 +158,9 @@ def get_csv_data(path):
             if line=='':
                 continue
             l=line.split(',')
+            if wanted!='1':
+                if l[-1]!=wanted:
+                    continue
             left=[]
             right=[]
             for i in range(7):

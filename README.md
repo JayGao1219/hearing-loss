@@ -6,7 +6,7 @@ Mining Audiograms to Improve the Interpretability of Automated Audiometry Measur
 
 #### 听力图处理
 
-![data_preprocess](/Users/gjy/Documents/research/project/工程/audition/hearing-loss/image/data_preprocess.png)
+![data_preprocess](./image/data_preprocess.png)
 
 - 首先，我们丢弃了所有不完整的听力图，其中至少有一个测试频率缺失。
 - 接下来，我们丢弃了双耳听力都在正常范围内的听力图。根据对美国言语-语言-听力协会(ASHA)听力损失指南的共同解释，我们认为所有阈值分别小于或等于20 dB和15 dB的听力图分别表示成人和儿童的听力正常
